@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200" width="50" height="20">
+
+  <!-- Bandera del Reino Unido (Union Jack), solapada 100px -->
+  <g id="uk" transform="translate(200,0)">
+    <!-- Fondo azul -->
+    <rect width="300" height="200" fill="#012169"/>
+
+    <!-- Diagonales blancas gruesas -->
+    <line x1="0" y1="0" x2="300" y2="200" stroke="white" stroke-width="60"/>
+    <line x1="300" y1="0" x2="0" y2="200" stroke="white" stroke-width="60"/>
+
+    <!-- Diagonales rojas -->
+    <line x1="0" y1="0" x2="300" y2="200" stroke="#C8102E" stroke-width="40"/>
+    <line x1="300" y1="0" x2="0" y2="200" stroke="#C8102E" stroke-width="40"/>
+
+    <!-- Cruz blanca -->
+    <rect x="120" y="0"   width="60"  height="200" fill="white"/>
+    <rect x="0"   y="80"  width="300" height="40"  fill="white"/>
+
+    <!-- Cruz roja -->
+    <rect x="130" y="0"   width="40"  height="200" fill="#C8102E"/>
+    <rect x="0"   y="90"  width="300" height="20"  fill="#C8102E"/>
+  </g>
+
+  <!-- Bandera de España -->
+  <g id="espana">
+    <rect x="0"   y="0"   width="250" height="50"  fill="#AA151B"/>
+    <rect x="0"   y="50"  width="250" height="100" fill="#F1BF00"/>
+    <rect x="0"   y="150" width="250" height="50"  fill="#AA151B"/>
+  </g>
+</svg>

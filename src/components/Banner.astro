@@ -1,0 +1,155 @@
+---
+---
+
+<style>
+
+  .breadcrumb {
+      color: white;
+      font-size: 14px;
+      font-family: "Cascadia Mono", "Segoe UI", Arial;
+  }
+
+  .breadcrumb a {
+     color: #ccc;
+    text-decoration: none;
+    margin-right: 0.3rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #f4f0e6;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .date {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .image-container {
+    width: auto;
+    height: auto;
+    background-color: #303030;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: auto;
+    border-radius: 8px;
+  }
+
+  .image-container img {
+    display: inline-block;
+    width: 300px;
+    height: auto;
+    border-radius: 5px;
+  }
+
+  /* Responsive */
+  @media (min-width: 630px) {
+    
+    .image-container {
+      width: auto;
+      height: auto;
+    }
+
+    .image-container img {
+      width: 500px;
+      height: auto;
+    }
+      
+  }
+
+  @media (min-width: 900px) {
+    
+    .image-container {
+      width: auto;
+      height: auto;
+    }
+
+    .image-container img {
+      width: 750px;
+      height: auto;
+    }
+      
+  }
+
+
+</style>
+
+
+<div class="head-container">
+    <div class="breadcrumb">
+        <a id="navHome" href="/"></a> &gt; <span id="titleNav"></span>
+    </div>
+    <h1 class="title"></h1>
+    <div class="date"></div>
+    
+</div>
+<div class="image-container">
+  <img id="imgArtic" src="../../public/assets/images/loadingImg.svg" alt="article image" />
+</div>
+
+
+<script>
+  import arrayJson from '../../public/api/articles.json';
+
+  const idBuscado = new URL(window.location.href).searchParams.get('a');
+
+  // Buscar el objeto con el id deseado
+  const articleData = arrayJson.find(obj => obj.id === idBuscado);
+
+
+  function defineText() {
+    let navHome, titleNav, title, date;
+    let altImg, srcImg;
+
+    if (document.documentElement.lang === "en") {
+      navHome = 'Home';
+      titleNav = articleData?.['title-en'];
+      title = articleData?.['title-en'];
+      date = articleData?.['prompt-generation-date']+" • Updated "+articleData?.['prompt-generation-date'];
+      altImg = articleData?.['title-en'];
+
+    } else {
+      navHome = 'Inicio';
+      titleNav = articleData?.['title-es'];
+      title = articleData?.['title-es'];
+      date = articleData?.['prompt-generation-date']+" • Actualizado "+articleData?.['prompt-generation-date'];
+      altImg = articleData?.['title-es'];
+    }
+
+    srcImg = articleData?.['srcImg'];
+  
+    const navHomeElement = document.getElementById('navHome');
+    const titleNavElement = document.getElementById('titleNav');
+    const titleElement = document.querySelector('.title');
+    const dateElement = document.querySelector('.date');
+    const altImgElement = document.getElementById('imgArtic');
+
+    if (navHomeElement) navHomeElement.textContent = navHome;
+    if (titleNavElement) titleNavElement.textContent = titleNav ?? null;
+    if (titleElement) titleElement.textContent = title ?? null;
+    if (dateElement) dateElement.textContent = date ?? null;
+    if (altImgElement) {
+      altImgElement.setAttribute('alt', altImg || '');
+      altImgElement.setAttribute('src', srcImg || '');
+
+    }
+
+  }
+
+  defineText();
+  const clickDiv = document.querySelector('.flags');
+
+  if (clickDiv) {
+      clickDiv.addEventListener('click', () => {
+        defineText();
+    });
+  }
+
+</script>

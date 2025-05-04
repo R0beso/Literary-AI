@@ -1,0 +1,231 @@
+---
+---
+
+<style>
+
+    .chatContainer {
+        width: 100%;
+        max-width: 1000px;
+        background: #20222c;
+        border-radius: 14px;
+        box-shadow: 0 4px 32px rgb(30, 27, 37);
+        padding: 0 0 16px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        overflow: hidden;
+        margin-top: 15px;
+    }
+
+    .flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+    }
+
+    p {
+        margin: 15px 20px;
+    }
+
+    .text-content {
+        flex: 1;
+        padding-right: 20px;
+    }
+    .logo {
+        margin-right: 10px;
+    }
+
+    .logo img {
+        max-width: 80px;
+        height: auto;
+    }
+    
+    hr {
+        border: none;
+        height: 1px;
+        background-color: #333;
+        margin-bottom: 20px;
+    }
+
+    .userMsgRow {
+        display: flex;
+        justify-content: flex-end;
+        margin: 16px 24px 0 24px;
+    }
+
+    .assistantMsgRow {
+        margin: 0;
+    }
+
+    .userBubble {
+        background: #3f4451;
+        color: #fafafa;
+        padding: 14px 18px;
+        border-radius: 14px 14px 4px 14px;
+        white-space: pre-line;
+        max-width: 80%;
+        font-size: 1rem;
+        box-shadow: 0 2px 8px rgba(60,60,60,0.12);
+    }
+
+    .assistantBubble {
+        background: #20222c;
+        color: #f9fafb;
+        padding: 44px 25px;
+        white-space: pre-line;
+        max-width: 100%;
+        font-size: 1rem;
+        margin: auto;
+    }
+
+    @media (max-width: 500px) {
+        .flex {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .text-content {
+            padding-right: 0;
+            margin-bottom: 0;
+        }
+    }
+
+</style>
+
+
+<div class="chatContainer">
+    <div class="detailsContainer">
+        <div>
+            <div class="flex">
+                <div class="text-content">
+                    <p>
+                        <span id="model"></span>
+                        <br/>
+                        <span id="date"></span>
+                        <br/>
+                        <span id="promptLang"></span>
+                        <br/>
+                        <span id="linkChat"></span>
+                        <br/>
+                    </p>
+                </div>
+                <div class="logo">
+                    <img
+                        src="public/assets/images/OpenAI-white-monoblossom.svg"
+                        alt="OpenAI-white-monoblossom"
+                        class="OpenAI-Logo"
+                    >
+                </div>
+            <div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <!-- message 1 -->
+    <div class="userMsgRow">
+        <div id="msg1" class="userBubble"></div>
+    </div>
+    <!-- message 2 -->
+    <div class="assistantMsgRow">
+        <div id="msg2" class="assistantBubble"></div>
+    </div>
+    <!-- message 3 -->
+    <div class="userMsgRow">
+        <div id="msg3" class="userBubble"></div>
+    </div>
+    <!-- message 4 -->
+    <div class="assistantMsgRow">
+        <div id="msg4" class="assistantBubble"></div>
+        
+    </div>
+    <!-- message 5 -->
+    <div class="userMsgRow">
+        <div id="msg5" class="userBubble"></div>
+    </div>
+    <!-- message 6 -->
+    <div class="assistantMsgRow">
+        <div id="msg6" class="assistantBubble"></div>
+    </div>
+</div>
+
+<script>
+
+  import json from '../text-content/static/article.json'
+  import arrayJson from '../../public/api/articles.json';
+  import { marked } from 'marked';
+
+  const idBuscado = new URL(window.location.href).searchParams.get('a');
+  
+  // Buscar el objeto con el id deseado
+  const articleData = arrayJson.find(obj => obj.id === idBuscado);
+
+
+  function defineText() {
+
+    let model, date, promptLang, linkChat;
+
+    if (document.documentElement.lang === "en") {
+        model = "Model: "+ articleData?.['ai-model'];
+        date = "Date of response: "+ articleData?.['prompt-generation-date'];
+        promptLang = "Language of the conversation: English"
+        linkChat = "Link to the original chat: "+ articleData?.['urlOriginalChat'];
+    } else {
+        model = "Modelo: "+ articleData?.['ai-model'];
+        date = "Fecha de respuesta: "+ articleData?.['prompt-generation-date'];
+        promptLang = "Lenguaje de la conversación: Inglés"
+        linkChat = "Enlace al chat original: "+ articleData?.['urlOriginalChat'];
+    }
+
+    const modelElement = document.getElementById('model');
+    const dateElement = document.getElementById('date');
+    const promptLangElement = document.getElementById('promptLang');
+    const linkChatElement = document.getElementById('linkChat');
+
+    if (modelElement) modelElement.textContent = model;
+    if (dateElement) dateElement.textContent = date;
+    if (promptLangElement) promptLangElement.textContent = promptLang;
+    if (linkChatElement) linkChatElement.textContent = linkChat;
+    
+  }
+    const version = articleData?.['version'];
+    const pdfName = articleData?.['pdfName'];
+    const summary = articleData?.['summary-en']
+    
+    const msg1 = articleData?.['prompt1'];
+    const msg2 = articleData?.['answer1'];
+    const msg3 = json.english.prompt2;
+    const msg4 = articleData?.['answer2'];
+    const msg5 = json.english.prompt3;
+    const msg6 = articleData?.['answer3'];
+
+    const msg1Element = document.getElementById('msg1');
+    const msg2Element = document.getElementById('msg2');
+    const msg3Element = document.getElementById('msg3');
+    const msg4Element = document.getElementById('msg4');
+    const msg5Element = document.getElementById('msg5');
+    const msg6Element = document.getElementById('msg6');
+  
+     if (msg1Element) msg1Element.textContent = msg1 ?? null;
+    if (msg2Element) msg2Element.textContent = msg2 ?? null;
+    if (msg3Element) msg3Element.textContent = msg3 ?? null;
+    if (msg4Element) msg4Element.innerHTML = `${msg4}<br/>
+        <iframe src="/assets/pdfs/version-${version}/${pdfName}.pdf" width="100%" height="600px" />`;
+    if (msg5Element) msg5Element.textContent = msg5 ?? null;
+    if (msg6Element) msg6Element.innerHTML = `${ msg6 } <br/> ${ marked(summary  ?? '') }`.toString();
+
+
+
+  defineText();
+  const clickDiv = document.querySelector('.flags');
+
+  if (clickDiv) {
+      clickDiv.addEventListener('click', () => {
+        defineText();
+    });
+  }
+
+
+</script>
+

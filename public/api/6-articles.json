@@ -1,0 +1,44 @@
+[
+    {
+        "id":"2757697c-97e7-4257-a233-cef50e4721ea",
+        "title-en":"Web programmer",
+        "title-es":"Programador web",
+        "date":"25/04/2025",
+        "srcImg":"https://chatgpt.com/backend-api/public_content/enc/eyJpZCI6Im1fNjgwZmQ2NmQ2YmE0ODE5MTkzOTdjZGFhN2NjMzRiMGM6ZmlsZV8wMDAwMDAwMDRkYzg2MWY4YTlkODFiYjcyMWEyN2MxOCIsInRzIjoiNDg0OTYzIiwicCI6InB5aSIsInNpZyI6ImM4ZDAzZGVjMDZiNTIxMjg5ZWE2MThkYmExMjAzYjRkMzEzMTU3ZGRmYWVjYTkzZjJlNjJhMTVkMzA5Yzc1MzUiLCJ2IjoiMCIsImdpem1vX2lkIjpudWxsfQ=="
+    },
+    {
+        "id":"cbe4adaa-2338-448e-b025-343cda6d54b2",
+        "title-en":"Real estate",
+        "title-es":"Bienes raíces",
+        "date":"25/04/2025",
+        "srcImg":"https://chatgpt.com/backend-api/public_content/enc/eyJpZCI6Im1fNjgxMDQ5YjZhNjEwODE5MTk0Yzk0NTdiOTEzNjAzMTM6ZmlsZV8wMDAwMDAwMGNhZGM2MWY4Yjc0YTE1MTc2OGI5MjI5NSIsInRzIjoiNDg0OTcxIiwicCI6InB5aSIsInNpZyI6IjNmZmVlY2VkN2RhNWVmZGVkOGQyMjAzZTQxYWI2MGNmZDYzMzQ1MGUxYmNlMTQ1YWI1MWUyNzYwNjI3MGY4NjQiLCJ2IjoiMCIsImdpem1vX2lkIjpudWxsfQ=="
+    },
+    {
+        "id":"81369690-053c-49ff-bee4-2b66ae695130",
+        "title-en":"Carpentry",
+        "title-es":"Carpintería",
+        "date":"25/04/2025",
+        "srcImg":"https://chatgpt.com/backend-api/public_content/enc/eyJpZCI6Im1fNjgxMDQ4YzM2Y2EwODE5MWJiZTU4ZGExMDIzZmZjMzk6ZmlsZV8wMDAwMDAwMGNlZmM2MWY2YTY1MDkyYjA2MzA0ODhhZiIsInRzIjoiNDg0OTcxIiwicCI6InB5aSIsInNpZyI6IjkyMDFkNTlhM2ZlYTQ5YzU4NzE3ODlmMTNmZGQxNTBmOWYyNTNlZDQ0NjAyNTdiNzRlZmY2MjZkYzgzMjFhZDgiLCJ2IjoiMCIsImdpem1vX2lkIjpudWxsfQ=="
+    },
+    {
+        "id":"b71863b6-f156-4dbf-bf02-1d61cec11fa4",
+        "title-en":"Opinions",
+        "title-es":"Opiniones",
+        "date":"25/04/2025",
+        "srcImg":"https://chatgpt.com/backend-api/public_content/enc/eyJpZCI6Im1fNjgxMDQ5OTZhMzg0ODE5MWEyYjJjMjQ3OGFhZDRhMDY6ZmlsZV8wMDAwMDAwMDA5YzQ2MWY4ODE2MDk4OTY2YjlkOGIyZCIsInRzIjoiNDg0OTcxIiwicCI6InB5aSIsInNpZyI6IjRhMjEzYjdlZDkyMTEzZmM1ZjYwMmVmZTg5OTNjZDVkYjNjYWVhMzljNjQwNDQyYzhkNmM0ZmRlY2Q1NDMyMWMiLCJ2IjoiMCIsImdpem1vX2lkIjpudWxsfQ=="
+    },
+    {
+        "id":"ebfaed0b-b333-4734-862b-0320b6cc4012",
+        "title-en":"Smart home",
+        "title-es":"Casa inteligente",
+        "date":"25/04/2025",
+        "srcImg":"https://chatgpt.com/backend-api/public_content/enc/eyJpZCI6Im1fNjgxMDQ4ZmU2N2NjODE5MTg1NmI4Njg1YjUwYzU3NDI6ZmlsZV8wMDAwMDAwMDRiNGM2MjMwYjNhOGUzOTgzNDAyNTM5ZiIsInRzIjoiNDg0OTcxIiwicCI6InB5aSIsInNpZyI6IjJlNGNkMWFhMGIwOGU1Y2JkZjEwYzk4ZTRjZTU5OWRkZDIzM2IzY2VhMTE3YjY0NmY1MmFjYzc0N2Y4MzYyY2IiLCJ2IjoiMCIsImdpem1vX2lkIjpudWxsfQ=="
+    },
+    {
+        "id":"6debf8b5-98a8-47dd-b204-985aff073f6e",
+        "title-en":"Business",
+        "title-es":"Negocios",
+        "date":"27/04/2025",
+        "srcImg":"https://chatgpt.com/backend-api/public_content/enc/eyJpZCI6Im1fNjgxMDQ5Mjc5ZDMwODE5MTg1YWNlNzRlMzFhYjc2YzY6ZmlsZV8wMDAwMDAwMGI3NzQ2MjMwYWM3MjAzODg5MmE2YmJmMSIsInRzIjoiNDg0OTcxIiwicCI6InB5aSIsInNpZyI6ImIzNGQxNTVjMTQ4ZThjOGIwNTExNDliM2E2Yzk5N2RhOGY2MmU1MmQwMWU0NDU3YTE4NDk0Y2JiYTY5MTIxN2IiLCJ2IjoiMCIsImdpem1vX2lkIjpudWxsfQ=="
+    }
+]

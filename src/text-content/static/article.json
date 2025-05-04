@@ -1,0 +1,12 @@
+{
+    "spanish": {
+        "option1":"Resumen del artículo",
+        "option2":"Inspeccionar la investigación de IA"
+    },
+    "english": {
+        "option1":"Article Summary",
+        "option2":"Inspect AI research",
+        "prompt2":"Be extensive and tell me what you consider most important about the topic.",
+        "prompt3":"Excellent research—now please write a summary of approximately 500 words."
+    }
+}

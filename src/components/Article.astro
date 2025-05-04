@@ -1,0 +1,155 @@
+---
+import Research from "./Research.astro";
+
+---
+
+<style>
+  .container {
+    border: 1px solid #464545;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    background-color: rgb(31, 29, 40);
+    color: #eee;
+    margin: 2rem auto auto auto;
+    font-family: system-ui, sans-serif;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 2rem;
+    border-bottom: 1px solid #444;
+  }
+
+  .tab {
+    padding-bottom: 0.3rem;
+    cursor: pointer;
+    color: #ccc;
+  }
+
+  .tab.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+  }
+
+  #article{
+    margin-top: 1.5rem;
+  }
+
+  #inspect {
+    display: none;
+  }
+
+  .title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+</style>
+
+
+<div class="container">
+  <div class="tabs">
+    <div id="tab1" class="tab active"></div> <!-- Resumen del artículo -->
+    <div id="tab2" class="tab"></div> <!-- Inspeccionar la investigación por IA -->
+  </div>
+  <article id="article">
+    <div class="content"></div>
+  </article>
+  <article id="inspect">
+    <Research />
+  </article>
+</div>
+
+
+<script >
+
+  import json from '../text-content/static/article.json'
+  import arrayJson from '../../public/api/articles.json';
+  import { marked } from 'marked';
+
+  const idBuscado = new URL(window.location.href).searchParams.get('a');
+  
+  // Buscar el objeto con el id deseado
+  const articleData = arrayJson.find(obj => obj.id === idBuscado);
+
+
+  if(articleData === undefined){
+    const currentPath = window.location.pathname;
+    // Elimina '/artic' del path
+    const newPath = currentPath.replace('/artic', '') || '/';
+    // Redirige conservando los parámetros de búsqueda (query string)
+    const newUrl = newPath + window.location.search;
+    // Redirige a la nueva URL
+    window.location.replace(newUrl);
+  }
+
+  const container = document.querySelector('.container') as HTMLElement;
+
+  const tab1 = document.getElementById('tab1');
+  const tab2 = document.getElementById('tab2');
+  const article = document.getElementById('article');
+  const inspect = document.getElementById('inspect');
+  const content = document.querySelector('.content');
+
+  // Obtener el valor actual del atributo
+  if(container && tab1 && tab2 && article && inspect){
+
+    tab1.addEventListener('click', () => {
+      const classValue = tab1.getAttribute('class');
+      
+      if(classValue === 'tab'){
+        tab1.setAttribute('class','tab active');
+        tab2.setAttribute('class','tab');
+        article.style.display = 'block';
+        inspect.style.display = 'none';
+      }
+    });
+
+    tab2.addEventListener('click', () => {
+      const classValue = tab2.getAttribute('class');
+      
+      if(classValue === 'tab'){
+        tab1.setAttribute('class','tab');
+        tab2.setAttribute('class','tab active');
+        article.style.display = 'none';
+        inspect.style.display = 'block';
+      }
+    });
+    
+    function defineText() {
+      let textArticle, textInspect, textContent;
+
+      if (document.documentElement.lang === "en") {
+        textArticle = json.english.option1;
+        textInspect = json.english.option2;
+        textContent = articleData?.['summary-en']
+      } else {
+        textArticle = json.spanish.option1;
+        textInspect = json.spanish.option2;
+        textContent = articleData?.['summary-es'];
+      }
+
+      if (tab1) tab1.textContent = textArticle;
+      if (tab2) tab2.textContent = textInspect;
+      if (content) content.innerHTML = marked(textContent ?? "").toString();
+
+    }
+
+    defineText();
+    const clickDiv = document.querySelector('.flags');
+    if (clickDiv) {
+        clickDiv.addEventListener('click', () => {
+          defineText();
+      });
+    }
+
+  }
+
+</script>

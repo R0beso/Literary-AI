@@ -1,0 +1,10 @@
+{
+    "spanish": {
+        "span":"- Contenido de IA",
+        "menu2": ["Tendencias","Noticias","Más"]
+    },
+    "english": {
+        "span":"- AI Content",
+        "menu2": ["Trends","News","More"]
+    }
+}

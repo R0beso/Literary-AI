@@ -1,0 +1,10 @@
+{
+    "spanish": {
+        "text":"Inicio >",
+        "input":"Término de búsqueda"
+    },
+    "english": {
+        "text":"Home >",
+        "input":"Search Term"
+    }
+}

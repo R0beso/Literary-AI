@@ -1,0 +1,38 @@
+---
+
+---
+
+<footer style="text-align: center; color: #aaa; font-size: 14px; padding: 20px 20px 30px 20px;">
+    © <span id="year"></span> Hippobese - <span id="changeText">Terms Privacy</span>
+</footer>
+
+<script>
+  import json from '../text-content/static/footer.json';
+
+  function defineText() {
+    let footer;
+
+    if (document.documentElement.lang === "en") footer = json.english.footer; 
+    else footer = json.spanish.footer;
+
+    const footerElement = document.getElementById('changeText');
+
+    if (footerElement) footerElement.textContent = footer;
+
+  }
+
+  defineText();
+  const clickDiv = document.querySelector('.flags');
+
+  if (clickDiv) {
+      clickDiv.addEventListener('click', () => {
+        defineText();
+    });
+  }
+
+  const yearElement = document.getElementById('year');
+  if (yearElement) yearElement.textContent = new Date().getFullYear().toString();
+    
+</script>
+    
+  
