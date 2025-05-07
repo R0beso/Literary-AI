@@ -3,38 +3,155 @@
 ---
 
 <section class="search-section">
-  <div id="click">
+  <div>
     <strong>
-      <span class="breadcrumb">Home &gt;</span>
+      <a class="breadcrumb" style="text-decoration: none;"></a>
     </strong>
   </div>
   <div class="search-bar">
-      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
     <input type="text" id="input" placeholder="Search Term">
+    <span
+      id="resultados-list"
+      class="style-input"
+      style="display: none;"
+    ></span>
   </div>
 </section>
+
+
+<script>
+
+import data from '../../public/api/articles.json'
+
+  const input = document.getElementById('input') as HTMLInputElement;
+  const list = document.getElementById('resultados-list') as HTMLInputElement;
+
+
+  input.addEventListener('input', () => {
+    const query = input.value.trim().toLowerCase();
+    
+    list.innerHTML = '';
+
+    if (query === '') {
+      list.style.display = 'none';
+      return;
+    }
+
+    let elements;
+
+    if (document.documentElement.lang === "en") {
+     elements = data.filter(item =>
+          item['title-en'].toLowerCase().includes(query)
+    );
+    } else {
+      elements = data.filter(item =>
+          item['title-es'].toLowerCase().includes(query)
+    );
+    }
+
+    const results = elements.length > 5 ? elements.slice(0, 5) : elements;
+    let firstItem = true
+
+    if (results.length > 0) {
+      results.forEach(item => {
+        const div = document.createElement('div');
+        if (document.documentElement.lang === "en") {
+          div.textContent = item['title-en'];
+        }
+        else{
+          div.textContent = item['title-es'];
+        }
+        const searchIcon = document.createElement('img');
+        searchIcon.setAttribute('src','public/assets/images/search.svg')
+        searchIcon.setAttribute('alt','o')
+        searchIcon.style.width = '30px';
+        searchIcon.style.height = '16px';
+
+        const a = document.createElement('a');
+        a.style = ("display: flex; align-items: center;  padding: 5px");
+        a.style.margin = '0';
+        if(firstItem){
+          a.style.marginTop = '3px';
+          firstItem = false;
+        }
+        a.style.cursor = 'pointer';
+        a.style.textDecoration = 'none';
+        a.style.color = 'inherit';
+
+        if (document.documentElement.lang === "en") {
+          a.href = '/artic?a=' + item.id + '&lang=en';
+        }
+        else{
+          a.href = '/artic?a=' + item.id + '&lang=es';
+        }
+
+
+        // Agregar la clase cuando el mouse entra
+        a.addEventListener('mouseenter', () => {
+          a.style.backgroundColor = '#e5e5e5';
+        });
+        a.addEventListener('mouseleave', () => {
+          a.style.backgroundColor = '';
+        });
+
+        a.innerHTML = '';
+        a.appendChild(searchIcon);
+        a.appendChild(div);
+        a.appendChild(document.createElement('br'));
+
+        list.appendChild(a);
+      });
+    } else {
+      const li = document.createElement('p');
+      li.textContent = 'Sin resultados';
+      li.style.margin = '3px';
+      li.style.marginLeft = '6px';
+      li.style.color = '#888';
+      list.appendChild(li);
+    }
+
+    list.style.display = 'inline-block';
+  });
+
+  
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target instanceof Node && !input.contains(target) && !list.contains(target)) {
+      list.style.display = 'none';
+    }
+  });
+
+</script>
+
 
 <script>
   import json from '../text-content/static/search-section.json';
 
   function defineText() {
-    let text, input;
+    let aText, input, aHref;
 
     if (document.documentElement.lang === "en") {
-        text = json.english.text;
+        aText = json.english.text;
         input = json.english.input;
+        aHref = '/?lang=en';
     } else {
-        text = json.spanish.text;
+        aText = json.spanish.text;
         input = json.spanish.input;
+        aHref = '/?lang=es';
     }
 
-    const textElement = document.querySelector('.breadcrumb');
+    const aElement = document.querySelector('.breadcrumb') as HTMLAnchorElement;;
     const inputElement = document.getElementById('input');
 
-    if (textElement) textElement.textContent = text;
+    if (aElement){
+      aElement.textContent = aText;
+      aElement.href = aHref;
+    }
+      
     if (inputElement) inputElement.setAttribute('placeholder', input);
   }
 
@@ -48,6 +165,25 @@
   }
 
 </script>
+
+
+<style>
+
+  .style-input{
+    width: 236px;
+    height: 162px;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    position: absolute; 
+    z-index: 10;
+    background-color: #fff;
+    margin-top: 0.25rem ;
+    max-height: 10rem;
+    transform: translateY(100px); 
+  }
+
+
+</style>
 
 <style>
     
@@ -74,6 +210,7 @@
     background-color: white;
     padding: 5px 10px;
     border-radius: 4px;
+    width: 230px;
 }
 
 .search-bar input {
@@ -91,9 +228,6 @@
   transition: color 0.3s ease;
 }
 
-.search-icon:hover {
-  color: #000; /* Cambia a negro cuando pases el mouse */
-}
 
 /* Responsive */
 @media (max-width: 330px) {

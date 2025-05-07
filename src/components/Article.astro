@@ -54,7 +54,7 @@ import Research from "./Research.astro";
 </style>
 
 
-<div class="container">
+<section class="container">
   <div class="tabs">
     <div id="tab1" class="tab active"></div> <!-- Resumen del artículo -->
     <div id="tab2" class="tab"></div> <!-- Inspeccionar la investigación por IA -->
@@ -65,7 +65,7 @@ import Research from "./Research.astro";
   <article id="inspect">
     <Research />
   </article>
-</div>
+</section>
 
 
 <script >
@@ -97,6 +97,7 @@ import Research from "./Research.astro";
   const article = document.getElementById('article');
   const inspect = document.getElementById('inspect');
   const content = document.querySelector('.content');
+  const aHome = document.getElementById('navHome') as HTMLAnchorElement;
 
   // Obtener el valor actual del atributo
   if(container && tab1 && tab2 && article && inspect){
@@ -124,18 +125,21 @@ import Research from "./Research.astro";
     });
     
     function defineText() {
-      let textArticle, textInspect, textContent;
+      let textArticle, textInspect, textContent, hrefText;
 
       if (document.documentElement.lang === "en") {
         textArticle = json.english.option1;
         textInspect = json.english.option2;
         textContent = articleData?.['summary-en']
+        hrefText = "/?lang=en"
       } else {
         textArticle = json.spanish.option1;
         textInspect = json.spanish.option2;
         textContent = articleData?.['summary-es'];
+        hrefText = "/?lang=es"
       }
 
+      if (aHome) aHome.href = hrefText;
       if (tab1) tab1.textContent = textArticle;
       if (tab2) tab2.textContent = textInspect;
       if (content) content.innerHTML = marked(textContent ?? "").toString();

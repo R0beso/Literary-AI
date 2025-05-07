@@ -1,4 +1,8 @@
 {
-    "spanish": {},
-    "english": {}
+    "spanish": {
+        "h1":"Resumen de los puntos clave que consideramos más importantes de cada tema"
+    },
+    "english": {
+        "h1":"A synthesis of the most critical insights from each topic"
+    }
 }

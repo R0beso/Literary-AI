@@ -78,6 +78,14 @@
         font-size: 1rem;
         margin: auto;
     }
+    
+    .scroll {
+        overflow-y: auto;
+        height: 600px;
+        margin: 30px;
+        border: 2px solid #888;
+
+    }
 
     @media (max-width: 500px) {
         .flex {
@@ -146,7 +154,7 @@
     </div>
     <!-- message 6 -->
     <div class="assistantMsgRow">
-        <div id="msg6" class="assistantBubble"></div>
+        <div id="msg6" class="assistantBubble scroll"></div>
     </div>
 </div>
 
@@ -190,7 +198,7 @@
     
   }
     const version = articleData?.['version'];
-    const pdfName = articleData?.['pdfName'];
+    const pdfName = articleData?.['nameFile'];
     const summary = articleData?.['summary-en']
     
     const msg1 = articleData?.['prompt1'];
