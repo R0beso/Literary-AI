@@ -1,9 +1,15 @@
 ---
 import Home from '../components/Home.astro';
 import Layout from '../layouts/Layout.astro';
-
 ---
 
 <Layout>
+    <script>
+        const metaTag = document.querySelector('meta[name="description"]');
+
+        if (metaTag && document.documentElement.lang === "es") 
+            metaTag.setAttribute('content', "Descubre contenido resumido y perspicaz generado por IA, que abarca temas desde tecnología hasta estilo de vida. Mantente informado con resúmenes concisos e inteligentes.");
+         
+    </script>
     <Home/>
 </Layout>
