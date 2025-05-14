@@ -1,14 +1,13 @@
 ---
-import Ad from "./Ad.astro";
 
 ---
 
 <div class="triplet">
-    <Ad />
+    <!-- <Ad /> -->
     <main>
         <slot />
     </main>
-    <Ad />  
+    <!-- <Ad /> -->
 </div>
 
 <style>
@@ -39,15 +38,12 @@ import Ad from "./Ad.astro";
     
     @media (max-width: 540px) {
         main {
-            padding: 0;
+            padding: 20px 0 0 0;
         }
     }
 
     @media (max-width: 1400px) {
 
-        main {
-            padding-top: 0;
-        }
 
         .triplet {
           flex-direction: column;
