@@ -12,3 +12,6 @@ insert:
 </script>
 
 
+insert:
+
+ads.txt
