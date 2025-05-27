@@ -15,7 +15,7 @@
     </svg>
     <input type="text" id="input" placeholder="Search Term">
     <span
-      id="resultados-list"
+      id="results-list"
       class="style-input"
       style="display: none;"
     ></span>
@@ -28,7 +28,7 @@
 import data from '../../public/api/articles.json'
 
   const input = document.getElementById('input') as HTMLInputElement;
-  const list = document.getElementById('resultados-list') as HTMLInputElement;
+  const list = document.getElementById('results-list') as HTMLInputElement;
 
 
   input.addEventListener('input', () => {
@@ -52,6 +52,20 @@ import data from '../../public/api/articles.json'
           item['title-es'].toLowerCase().includes(query)
     );
     }
+
+    function shuffleArray<T>(array: T[]): T[] {
+
+      const copy = [...array];
+
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]]; 
+      }
+
+      return copy;
+    }
+
+    elements = shuffleArray(elements);
 
     const results = elements.length > 5 ? elements.slice(0, 5) : elements;
     let firstItem = true
@@ -89,10 +103,8 @@ import data from '../../public/api/articles.json'
           a.href = '/artic?a=' + item.id + '&lang=es';
         }
 
-
-        // Agregar la clase cuando el mouse entra
         a.addEventListener('mouseenter', () => {
-          a.style.backgroundColor = '#e5e5e5';
+          a.style.backgroundColor = '#444';
         });
         a.addEventListener('mouseleave', () => {
           a.style.backgroundColor = '';
@@ -182,16 +194,11 @@ import data from '../../public/api/articles.json'
     transform: translateY(100px); 
   }
 
-
-</style>
-
-<style>
-    
 .search-section {
     display: flex;
     align-items: center;
     justify-content: start;
-    background-color: #1F2020;
+    background-color: #1f2020e2;
     padding: 10px 20px;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
@@ -207,27 +214,38 @@ import data from '../../public/api/articles.json'
 .search-bar {
     display: flex;
     align-items: center;
-    background-color: white;
+    background-color: #262626;
     padding: 5px 10px;
-    border-radius: 4px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
     width: 230px;
+
 }
 
 .search-bar input {
     border: none;
     outline: none;
     padding: 5px;
-    font-size: 14px;
+    font-size: 16px;
     font-family: 'Segoe UI', Arial;
+    background-color: #262626;
+    caret-color: white;
+    color: white;
 }
+
 
 .search-icon {
   width: 20px;
   height: 20px;
-  color: #333; /* Color gris por defecto */
+  color: white;
   transition: color 0.3s ease;
 }
 
+#results-list{
+  background-color: #2c2c2c;
+  border: none;
+  color: #fff;
+}
 
 /* Responsive */
 @media (max-width: 330px) {

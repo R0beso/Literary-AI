@@ -1,6 +1,5 @@
 ---
 import Research from "./Research.astro";
-
 ---
 
 <style>
@@ -51,13 +50,48 @@ import Research from "./Research.astro";
     margin-bottom: 2rem;
   }
 
+  .dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-toggle {
+    cursor: pointer;
+    text-decoration: underline;
+    user-select: none;
+    color: #ffffff;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .dropdown-versions-menu {
+    display: none;
+    position: absolute;
+    background: rgb(42, 42, 42);
+    margin-top: 5px;
+    padding: 0;
+    list-style: none;
+    width: auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    
+  }
+
+  input[type="checkbox"]:checked + label + ul {
+    display: block;
+  }
+
+
+
+
 </style>
 
 
 <section class="container">
   <div class="tabs">
-    <div id="tab1" class="tab active"></div> <!-- Resumen del artículo -->
-    <div id="tab2" class="tab"></div> <!-- Inspeccionar la investigación por IA -->
+    <div id="tab1" class="tab active"></div>
+    <div id="tab2" class="tab"></div> 
   </div>
   <article id="article">
     <div class="content"></div>
@@ -66,7 +100,14 @@ import Research from "./Research.astro";
     <Research />
   </article>
 </section>
-
+<div class="dropdown-wrapper">
+  <input type="checkbox" id="toggle-dropdown" />
+  <label for="toggle-dropdown" class="dropdown-toggle">
+    <u class="toggle-child"></u>
+  </label>
+  <ul class="dropdown-versions-menu">
+  </ul>
+</div>
 
 <script >
 
@@ -74,13 +115,23 @@ import Research from "./Research.astro";
   import arrayJson from '../../public/api/articles.json';
   import { marked } from 'marked';
 
-  const idBuscado = new URL(window.location.href).searchParams.get('a');
+
+  const idSearched = new URL(window.location.href).searchParams.get('a');
+  let versionSearched = (new URL(window.location.href).searchParams.get('v') || -1).toString();
   
   // Buscar el objeto con el id deseado
-  const articleData = arrayJson.find(obj => obj.id === idBuscado);
+  const articleData = arrayJson.find(obj => obj.id === idSearched);
+  
+  if (articleData && versionSearched === "-1") {
+    versionSearched = articleData["versions"].length.toString();
+  }
+
+  function versionOk(version:string, articleData:any) {
+    return ( parseInt(version) > 0 && parseInt(version) < articleData["versions"].length + 1 )
+  }
 
 
-  if(articleData === undefined){
+  if(articleData === undefined || !versionOk(versionSearched,articleData)){
     const currentPath = window.location.pathname;
     // Elimina '/artic' del path
     const newPath = currentPath.replace('/artic', '') || '/';
@@ -98,6 +149,8 @@ import Research from "./Research.astro";
   const inspect = document.getElementById('inspect');
   const content = document.querySelector('.content');
   const aHome = document.getElementById('navHome') as HTMLAnchorElement;
+  const versionsMenu = document.querySelector('.dropdown-versions-menu');
+  const toggleChild = document.querySelector('.toggle-child');
 
   // Obtener el valor actual del atributo
   if(container && tab1 && tab2 && article && inspect){
@@ -125,25 +178,89 @@ import Research from "./Research.astro";
     });
     
     function defineText() {
-      let textArticle, textInspect, textContent, hrefText;
+      let textArticle, textInspect, textContent, hrefText, textToggleChild;
+      let allDates: Array<string> = articleData?.versions?.map(v => v["prompt-generation-date"]) || [];
 
       if (document.documentElement.lang === "en") {
         textArticle = json.english.option1;
         textInspect = json.english.option2;
-        textContent = articleData?.['summary-en']
-        hrefText = "/?lang=en"
+        textContent = articleData?.["versions"][parseInt(versionSearched)-1]['summary-en'];
+        hrefText = "/?lang=en";
+        if(articleData){
+          if(versionSearched === articleData["versions"].length.toString()){
+            textToggleChild = "Previous versions ▼";
+          }else{
+            textToggleChild = "Other versions ▼";
+          }
+        }
       } else {
         textArticle = json.spanish.option1;
         textInspect = json.spanish.option2;
-        textContent = articleData?.['summary-es'];
-        hrefText = "/?lang=es"
+        textContent = articleData?.["versions"][parseInt(versionSearched)-1]['summary-es'];
+        hrefText = "/?lang=es";
+        if(articleData){
+          if(versionSearched === articleData["versions"].length.toString()){
+            textToggleChild = "Versiones anteriores ▼";
+          }else{
+            textToggleChild = "Otras versiones ▼";
+          }
+        }
       }
+
+      if(articleData && articleData["versions"].length === 1)
+        textToggleChild = "";
+      
+
+
+      const a = allDates.map((date, index) => {
+        const url = new URL(window.location.href);
+        url.searchParams.set("v", (index + 1).toString()); // Reemplaza o agrega 'v'
+
+        return `
+        <style>
+
+          #versionsMenu {
+            background-color: #1e1e1e;
+            padding: 10px;
+            border-radius: 8px;
+          }
+
+          .menu-item {
+            margin-bottom: 5px;
+            list-style: none;
+          }
+
+          .menu-link {
+            text-decoration: none;
+            color: #eee; 
+            font-weight: bold;
+            padding: 6px 10px;
+            display: inline-block;
+            border-radius: 4px;
+          }
+
+          .menu-link:hover {
+            background-color: #383838;
+            color: orange;
+            font-weight: normal;
+          }
+        </style>
+        <li>
+          <a id="menuv${index}" class="menu-link" href="${url.toString()}">${date}</a>
+        </li>`;
+      });
+
+
 
       if (aHome) aHome.href = hrefText;
       if (tab1) tab1.textContent = textArticle;
       if (tab2) tab2.textContent = textInspect;
       if (content) content.innerHTML = marked(textContent ?? "").toString();
+      if (versionsMenu) versionsMenu.innerHTML = a.join("");
+      if (toggleChild) toggleChild.textContent = textToggleChild ?? "";
+      
 
+      console.log()
     }
 
     defineText();

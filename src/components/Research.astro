@@ -164,10 +164,15 @@
   import arrayJson from '../../public/api/articles.json';
   import { marked } from 'marked';
 
-  const idBuscado = new URL(window.location.href).searchParams.get('a');
+  const idSearched = new URL(window.location.href).searchParams.get('a');
+  let versionSearched = (new URL(window.location.href).searchParams.get('v') || -1).toString();
   
   // Buscar el objeto con el id deseado
-  const articleData = arrayJson.find(obj => obj.id === idBuscado);
+  const articleData = arrayJson.find(obj => obj.id === idSearched);
+  
+  if (articleData && versionSearched === "-1") {
+    versionSearched = articleData["versions"].length.toString();
+  }
 
 
   function defineText() {
@@ -175,15 +180,15 @@
     let model, date, promptLang, linkChat;
 
     if (document.documentElement.lang === "en") {
-        model = "Model: "+ articleData?.['ai-model'];
-        date = "Date of response: "+ articleData?.['prompt-generation-date'];
+        model = "Model: "+ articleData?.["versions"][parseInt(versionSearched)-1]['ai-model'];
+        date = "Date of response: "+ articleData?.["versions"][parseInt(versionSearched)-1]['prompt-generation-date'];
         promptLang = "Language of the conversation: English"
-        linkChat = "Link to the original chat: "+ articleData?.['urlOriginalChat'];
+        linkChat = "Link to the original chat: "+ articleData?.["versions"][parseInt(versionSearched)-1]['urlOriginalChat'];
     } else {
-        model = "Modelo: "+ articleData?.['ai-model'];
-        date = "Fecha de respuesta: "+ articleData?.['prompt-generation-date'];
+        model = "Modelo: "+ articleData?.["versions"][parseInt(versionSearched)-1]['ai-model'];
+        date = "Fecha de respuesta: "+ articleData?.["versions"][parseInt(versionSearched)-1]['prompt-generation-date'];
         promptLang = "Lenguaje de la conversación: Inglés"
-        linkChat = "Enlace al chat original: "+ articleData?.['urlOriginalChat'];
+        linkChat = "Enlace al chat original: "+ articleData?.["versions"][parseInt(versionSearched)-1]['urlOriginalChat'];
     }
 
     const modelElement = document.getElementById('model');
@@ -197,16 +202,16 @@
     if (linkChatElement) linkChatElement.textContent = linkChat;
     
   }
-    const version = articleData?.['version'];
+    const version = versionSearched;
     const pdfName = articleData?.['nameFile'];
-    const summary = articleData?.['summary-en']
+    const summary = articleData?.["versions"][parseInt(versionSearched)-1]['summary-en']
     
     const msg1 = articleData?.['prompt1'];
-    const msg2 = articleData?.['answer1'];
+    const msg2 = articleData?.["versions"][parseInt(versionSearched)-1]['answer1'];
     const msg3 = json.english.prompt2;
-    const msg4 = articleData?.['answer2'];
+    const msg4 = articleData?.["versions"][parseInt(versionSearched)-1]['answer2'];
     const msg5 = json.english.prompt3;
-    const msg6 = articleData?.['answer3'];
+    const msg6 = articleData?.["versions"][parseInt(versionSearched)-1]['answer3'];
 
     const msg1Element = document.getElementById('msg1');
     const msg2Element = document.getElementById('msg2');

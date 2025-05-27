@@ -98,11 +98,15 @@
 <script>
   import arrayJson from '../../public/api/articles.json';
 
-  const idBuscado = new URL(window.location.href).searchParams.get('a');
-
+  const idSearched = new URL(window.location.href).searchParams.get('a');
+  let versionSearched = (new URL(window.location.href).searchParams.get('v') || -1).toString();
+  
   // Buscar el objeto con el id deseado
-  const articleData = arrayJson.find(obj => obj.id === idBuscado);
-
+  const articleData = arrayJson.find(obj => obj.id === idSearched);
+  
+  if (articleData && versionSearched === "-1") {
+    versionSearched = articleData["versions"].length.toString();
+  }
 
   function defineText() {
     let navHome, titleNav, title, date;
@@ -112,14 +116,14 @@
       navHome = 'Home';
       titleNav = articleData?.['title-en'];
       title = articleData?.['title-en'];
-      date = articleData?.['prompt-generation-date']+" • Updated "+articleData?.['prompt-generation-date'];
+      date = "Updated • "+articleData?.["versions"][parseInt(versionSearched)-1]['prompt-generation-date'];
       altImg = articleData?.['title-en'];
 
     } else {
       navHome = 'Inicio';
       titleNav = articleData?.['title-es'];
       title = articleData?.['title-es'];
-      date = articleData?.['prompt-generation-date']+" • Actualizado "+articleData?.['prompt-generation-date'];
+      date = "Actualizado • "+articleData?.["versions"][parseInt(versionSearched)-1]['prompt-generation-date'];
       altImg = articleData?.['title-es'];
     }
 

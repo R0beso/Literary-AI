@@ -1,11 +1,15 @@
 ---
+const { homeNative } = Astro.props;
 ---
 
 <style>
 
   #h1 {
-    padding: 20px;
+    padding: 5px;
     margin: 0 0 20px 0;
+    font-size: 24px;
+    display: flex; 
+    justify-content: center
   }
 
   .container-home {
@@ -26,8 +30,12 @@
 
 </style>
   
-<div>
-  <h1 id="h1"></h1>
+<div style="align-items: center;">
+  { homeNative ? 
+    <h1 id="h1"></h1> 
+  : 
+    <h2 id="h1"></h2>
+  }
 </div>
 <section class="container-home" id="articleContainer"></section>
   
@@ -48,7 +56,7 @@
   defineText();
 
   let loadedCount = 0;
-  const batchSize = 9;
+  const batchSize = 15;
   let allArticles: Array<any> = [];
   const container = document.getElementById('articleContainer');
   
@@ -60,19 +68,20 @@
   }
 
   function shuffleArray(array: Array<any>) {
-  const result = array.slice();
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const result = array.slice();
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
 
-    [result[i], result[j]] = [result[j], result[i]];
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
   }
-  return result;
-}
 
   function loadArticles() {
     const slice = allArticles.slice(loadedCount, loadedCount + batchSize);
     slice.forEach(article => {
       const card = document.createElement('article');
+      const lastVersion = article["versions"].length - 1;
       card.className = 'card-home';
       card.innerHTML = `
           <a id="${article.id}" href="/artic?a=${article.id}&lang=${document.documentElement.lang}">
@@ -80,7 +89,7 @@
                   <img src="/assets/images/posts/${article['nameFile'] || ''}-min.png" alt="${article['title-en']}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" />
               </div>
               <div class="title-home" id="title${article.id}"></div>
-              <div class="date-home">${article['prompt-generation-date'] || '...'}</div>
+              <div class="date-home">${article["versions"][lastVersion]['prompt-generation-date'] || '...'}</div>
           </a>
               <style>
               .image-placeholder-home {
