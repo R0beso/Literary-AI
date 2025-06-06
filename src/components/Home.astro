@@ -84,7 +84,7 @@ const { homeNative } = Astro.props;
       const lastVersion = article["versions"].length - 1;
       card.className = 'card-home';
       card.innerHTML = `
-          <a id="${article.id}" href="/artic?a=${article.id}&lang=${document.documentElement.lang}">
+          <a id="${article.id}" href="/artic/?a=${article.id}&lang=${document.documentElement.lang}">
               <div class="image-placeholder-home">
                   <img src="/assets/images/posts/${article['nameFile'] || ''}-min.png" alt="${article['title-en']}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" />
               </div>
