@@ -1,7 +1,7 @@
 {
   "name": "hippobese",
   "type": "module",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "astro": "^5.7.5",
     "marked": "^15.0.11"
   }

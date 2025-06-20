@@ -1,0 +1,290 @@
+---
+---
+
+
+<style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+
+    /* Fondo semi-transparente */
+    .alert-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+
+    /* Caja de la alerta */
+    .alert-box {
+      background: rgb(41, 41, 41);
+      padding: 20px;
+      border-radius: 10px;
+      min-width: 200px;
+      max-width: 90%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .alert-box .close-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .alert-content {
+      margin: 0px;
+    }
+
+    button:disabled {
+      color: gray;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+  </style>
+
+
+
+<div id="alertOverlay" class="alert-overlay">
+    <div class="alert-box">
+    <button class="close-btn" onclick="hideAlert()">×</button>
+    <div class="alert-content" id="alertContent"></div>
+    </div>
+</div>
+
+
+<script>
+
+  import json from '../text-content/static/support-alert.json'
+  import emailjs from '@emailjs/browser';
+
+  function showAlert() {
+
+    const content = `
+  <h2 id="title-alert" style="margin-top:0; text-align:center">
+    Reportar incidente
+  </h2>
+  <hr/>
+  <span id="span-alert" style="max-width:650px;display:inline-block">
+    ¿Por qué quieres reportar este artículo?
+    Si alguien se encuentra en peligro inminente, busca ayuda antes de enviar un reporte a Hippobese. No esperes.
+  </span>
+
+  <div id="contenedor"></div>
+  <br/>
+
+  <div id="contenedor2">
+    <textarea id="motivoInput" rows="3"
+      style="width:100%;max-height:250px;min-height:70px;resize:vertical;
+             padding:12px 16px;font-size:16px;border:1px solid #ccc;
+             border-radius:8px;margin-top:10px;
+             box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);
+             box-sizing:border-box;"
+      placeholder=""></textarea>
+
+    <br/><br/>
+
+    <button id="sendEmailBtn"
+      style="all:unset;cursor:pointer;color:#007BFF;text-decoration:underline;
+             float:right;font-size:16px;margin-top:12px">
+      Enviar reporte
+    </button>
+  </div>
+`;
+
+    const contentBox = document.getElementById('alertContent');
+    const overlay = document.getElementById('alertOverlay');
+
+    if (contentBox && overlay) {
+      contentBox.innerHTML = content;
+      overlay.style.display = 'flex';
+
+      hideNextContent(true);
+
+      
+      (function(){
+          emailjs.init({
+            publicKey: "WLa5iaCEA814UMlhm",
+          });
+      })();
+    
+
+      const sendBtn = document.getElementById('sendEmailBtn') as HTMLButtonElement;
+
+      sendBtn?.addEventListener('click', () => {
+        const message = (document.getElementById('motivoInput') as HTMLTextAreaElement)?.value.trim();
+        if (!message) return alert("Escribe un mensaje.");
+
+        sendBtn.disabled = true;
+        sendBtn.style.color = "gray";
+        sendBtn.style.cursor = "not-allowed";
+        sendBtn.style.opacity = "0.6";
+
+
+        emailjs.send("service_SMTPserver1", "template_ajpmn9j", { message })
+          .then(() => {
+            let submited;
+            if (document.documentElement.lang === "en") {
+              submited = json.english.submited;
+            } else {
+              submited = json.spanish.submited;
+            }
+            alert(submited);
+          })
+          .catch(err => {
+          })
+          .finally(() => {
+            sendBtn.disabled = false;
+            sendBtn.style.color = "";  
+            sendBtn.style.cursor = "";
+            sendBtn.style.opacity = "";
+            
+            const overlay = document.getElementById("alertOverlay");
+            if(overlay){
+                
+              overlay.style.opacity = "0";
+              overlay.style.transform = "translateY(-20px)";
+
+              setTimeout(() => {
+                overlay.style.display = "none";
+                overlay.style.opacity = "100";
+                overlay.style.transform = "translateY(0px)";
+              }, 500);
+            }
+            hideAlert();
+          });
+      });
+    }
+
+    function defineText() {
+      let span, title, sentences, submit;
+
+      if (document.documentElement.lang === "en") {
+          span = json.english.spanHome;
+          if( new URL(window.location.href).pathname === "/artic") {
+            span = json.english.span;
+          }
+          title = json.english.title;
+          sentences = json.english.sentences;
+          submit = json.english.submit;
+          
+      } else {
+          span = json.spanish.spanHome;
+          if( new URL(window.location.href).pathname === "/artic") {
+            span = json.spanish.span;
+          }
+          title = json.spanish.title;
+          sentences = json.spanish.sentences;
+          submit = json.spanish.submit;
+      }
+
+      const spanElement = document.getElementById('span-alert');
+      const titleAlertElement = document.getElementById('title-alert');
+      const submitElement = document.getElementById('sendEmailBtn');
+
+      if (spanElement) spanElement.textContent = span;
+      if (titleAlertElement) titleAlertElement.textContent = title;
+      if (submitElement) submitElement.textContent = submit;
+
+      
+  const contenedor = document.getElementById('contenedor');
+
+  let index = 1;
+  sentences.forEach(sentence => {
+
+    const button = document.createElement('button');
+    button.textContent = sentence;
+
+    button.style.border = "none";
+    button.style.background = "none";
+    button.style.padding = "0";
+    button.style.margin = "0";
+    button.style.color = "inherit";
+    button.style.font = "inherit";
+    button.style.fontWeight = "bold";
+    button.style.cursor = "pointer";
+    button.style.outline = "none";
+    button.style.fontSize = "18px";
+    button.style.textAlign = "left";
+
+    button.addEventListener('click', () => {
+        const input = document.getElementById('motivoInput') as HTMLInputElement;
+        if (input) {
+          if(button.textContent === "Otro"){
+            input.value = "";
+          }else{
+            input.value = button.textContent || "";
+          }
+          hideNextContent(false);
+          input.focus();
+        }
+    });
+
+      if(index > 1) {
+            contenedor?.appendChild(document.createElement('br'));
+        }
+        contenedor?.appendChild(document.createElement('br'));
+        contenedor?.appendChild(button);
+        index++;
+      });
+
+    }
+
+    defineText();
+
+    const flagsImg = document.querySelector('.flags');
+    if (flagsImg) {
+      flagsImg.addEventListener('click', () => {
+        defineText();
+      });
+    }
+    setScroll(true);
+
+  }
+
+  function hideNextContent(hide:boolean) {
+    const contenedor = document.getElementById('contenedor2');
+    if (hide && contenedor){
+      contenedor.style.display = "none";
+    } 
+    else if (contenedor) {
+      contenedor.style.display = "block";
+    }
+  }
+
+  function hideAlert() {
+    const overlay = document.getElementById("alertOverlay");
+    if (overlay) overlay.style.display = "none";
+    setScroll(false);
+    hideNextContent(false);
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const activador = document.getElementById("alertActivator");
+    activador?.addEventListener("click", showAlert);
+  });
+
+  
+
+  function setScroll(scroll:boolean){
+    if(scroll)
+        document.getElementsByTagName("body")[0].style.overflow = "hidden";
+    else
+        document.getElementsByTagName("body")[0].style.overflow = "scroll";
+  }
+
+  window.showAlert = showAlert;
+  window.hideAlert = hideAlert;
+</script>
+

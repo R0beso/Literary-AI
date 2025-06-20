@@ -3,6 +3,8 @@ import Footer from "../components/Footer.astro";
 import MainComponent from "../components/MainComponent.astro";
 import Menu from "../components/Menu.astro";
 import SearchSection from "../components/SearchSection.astro";
+import SupportAlert from "../components/SupportAlert.astro";
+
 ---
 
 <!doctype html>
@@ -16,6 +18,9 @@ import SearchSection from "../components/SearchSection.astro";
     <title>Hippobese</title>
     <meta name="robots" content="index, follow">
     <meta name="author" content="R0beso">
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
   </head>
   <body>
     
@@ -35,6 +40,7 @@ import SearchSection from "../components/SearchSection.astro";
       </MainComponent>
       <Footer />
     </div>
+    <SupportAlert />
     
   </body>
 </html>
@@ -47,6 +53,7 @@ import SearchSection from "../components/SearchSection.astro";
     height: 100%;
     background-color: #1F2020;
     font-family: 'Segoe UI', Verdana, sans-serif;
+    color: white;
   }
 
   #fixed {

@@ -1,0 +1,28 @@
+{
+    "spanish": {
+        "title":"Reportar incidente",
+        "span":"¿Por qué quieres reportar este artículo? Si alguien se encuentra en peligro inminente, busca ayuda antes de enviar un reporte a Hippobese. No esperes.",
+        "spanHome":"¿Por qué quieres reportar estos artículo? Si alguien se encuentra en peligro inminente, busca ayuda antes de enviar un reporte a Hippobese. No esperes.",
+        "sentences":[
+            "Amenazas a la seguridad y bienestar personal",
+            "Contenido peligroso o perturbador",
+            "Conductas fraudulentas o ilícitas",
+            "Violación de derechos y normativas",
+            "Otro"],
+        "submit":"Enviar reporte",
+        "submited":"Mensaje enviado correctamente. Estaremos atentos ante sus comentarios."
+    },
+    "english": {
+        "title":"Report incident",
+        "span":"Why do you want to report this article? If someone is in imminent danger, seek help before sending a report to Hippobese. Don't wait.",
+        "spanHome":"Why do you want to report these articles? If someone is in imminent danger, seek help before sending a report to Hippobese. Don't wait.",
+        "sentences":[
+            "Threats to personal safety and well-being",
+            "Dangerous or disturbing content",
+            "Fraudulent or illegal conduct",
+            "Violation of rights and regulations",
+            "Other"],
+        "submit":"Submit report",
+        "submited":"Message sent successfully. With your report — we’re on it!"
+    }
+}

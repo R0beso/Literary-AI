@@ -1,10 +1,10 @@
 {
     "spanish": {
         "span":"- Contenido de IA",
-        "menu2": ["Inicio"]
+        "menu2": ["Inicio", "Soporte"]
     },
     "english": {
         "span":"- AI Content",
-        "menu2": ["Home"]
+        "menu2": ["Home", "Support"]
     }
 }

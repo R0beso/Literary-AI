@@ -26,7 +26,7 @@
 
     <ul class="dropdown-menu">
         <li><a id="menu1">Home</a></li>
-     <!--  <li><a id="menu2">News</a></li>  -->
+        <li><a id="alertActivator">Support</a></li>
      <!--  <li><a id="menu3">More</a></li>  -->
     </ul>
 
@@ -42,14 +42,10 @@
         const logoLink = document.getElementById('logo-link') as HTMLAnchorElement;
         const logoTextLink = document.querySelector('.stay-lang') as HTMLAnchorElement;
         const menu1 =  document.getElementById('menu1') as HTMLAnchorElement;
-        const menu2 =  document.getElementById('menu2') as HTMLAnchorElement;
-        const menu3 =  document.getElementById('menu3') as HTMLAnchorElement;
 
         if (logoLink) logoLink.href = `/?lang=${lang}`;
         if (logoTextLink) logoTextLink.href = `/?lang=${lang}`;
         if (menu1) menu1.href = `/?lang=${lang}`;
-        if (menu2) menu2.href = `/?lang=${lang}`;
-        if (menu3) menu3.href = `/?lang=${lang}`;
     }
     
     function defineText() {
@@ -65,7 +61,7 @@
 
         const spanElement = document.getElementById('span');
         const menu1Element = document.getElementById('menu1');
-        const menu2Element = document.getElementById('menu2');
+        const menu2Element = document.getElementById('alertActivator');
         const menu3Element = document.getElementById('menu3');
 
         if (spanElement) spanElement.textContent = span;
