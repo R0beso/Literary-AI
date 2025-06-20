@@ -172,7 +172,9 @@
 
       if (document.documentElement.lang === "en") {
           span = json.english.spanHome;
-          if( new URL(window.location.href).pathname === "/artic") {
+          if( new URL(window.location.href).pathname === "/artic"
+            || new URL(window.location.href).pathname === "/artic/"
+          ) {
             span = json.english.span;
           }
           title = json.english.title;
@@ -181,7 +183,9 @@
           
       } else {
           span = json.spanish.spanHome;
-          if( new URL(window.location.href).pathname === "/artic") {
+          if( new URL(window.location.href).pathname === "/artic"
+            || new URL(window.location.href).pathname === "/artic/"
+          ) {
             span = json.spanish.span;
           }
           title = json.spanish.title;
