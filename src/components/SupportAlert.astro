@@ -225,7 +225,9 @@
     button.addEventListener('click', () => {
         const input = document.getElementById('motivoInput') as HTMLInputElement;
         if (input) {
-          if(button.textContent === "Otro"){
+          if(button.textContent === "Otro"
+            || button.textContent === "Other"
+          ){
             input.value = "";
           }else{
             input.value = button.textContent || "";
@@ -238,7 +240,9 @@
       if(index > 1) {
             contenedor?.appendChild(document.createElement('br'));
         }
-        contenedor?.appendChild(document.createElement('br'));
+        if (screen.height > 700) {
+          contenedor?.appendChild(document.createElement('br'));
+        }
         contenedor?.appendChild(button);
         index++;
       });
