@@ -34,7 +34,19 @@ import data from '../../public/api/articles.json'
   input.addEventListener('input', () => {
     const query = input.value.trim().toLowerCase();
     
-    list.innerHTML = '';
+    list.innerHTML = `<style>
+        .aElements {
+            text-decoration: none;
+            color: black;
+            padding: 5px;
+            display: inline-block;
+        }
+
+        .hover-sim {
+            background-color: #393939;
+            color: blue;
+        }
+    </style>`;
 
     if (query === '') {
       list.style.display = 'none';
@@ -110,13 +122,19 @@ import data from '../../public/api/articles.json'
           a.style.backgroundColor = '';
         });
 
+        a.classList.add("aElements");
+
         a.innerHTML = '';
         a.appendChild(searchIcon);
         a.appendChild(div);
         a.appendChild(document.createElement('br'));
 
         list.appendChild(a);
+
       });
+
+      
+
     } else {
       const li = document.createElement('p');
       li.textContent = 'Sin resultados';
@@ -126,7 +144,66 @@ import data from '../../public/api/articles.json'
       list.appendChild(li);
     }
 
+    const enlaces = document.querySelectorAll('.aElements');
+        let indice = 0;
+        let tieneSeleccion = false;
+
+        function actualizarHover() {
+            enlaces.forEach(el => el.classList.remove('hover-sim'));
+            if (tieneSeleccion) {
+            enlaces[indice].classList.add('hover-sim');
+            (enlaces[indice] as HTMLElement).focus();
+            }
+        }
+
+        function limpiarSeleccion() {
+            tieneSeleccion = false;
+            indice = 0;
+            enlaces.forEach(el => el.classList.remove('hover-sim'));
+        }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+            event.preventDefault(); // 👈 cancelar scroll predeterminado
+
+            if (!tieneSeleccion) {
+                indice = 0;
+                tieneSeleccion = true;
+                actualizarHover();
+                return;
+            }
+
+            if (event.key === 'ArrowDown') {
+                indice = (indice + 1) % enlaces.length;
+            } else if (event.key === 'ArrowUp') {
+                indice = (indice - 1 + enlaces.length) % enlaces.length;
+            }
+
+            actualizarHover();
+            }
+
+            if (event.key === 'Enter' && tieneSeleccion) {
+            (enlaces[indice] as HTMLElement).click();
+            }
+        });
+
+        enlaces.forEach((el, i) => {
+            el.addEventListener('mouseenter', () => {
+            limpiarSeleccion();
+            });
+        });
+
+        document.addEventListener('click', function (event) {
+            const target = event.target as Node | null;
+            if (!Array.from(enlaces).some(el => el.contains(target))) {
+              limpiarSeleccion();
+            }
+        });
+
+        window.addEventListener('blur', limpiarSeleccion);
+
     list.style.display = 'inline-block';
+
   });
 
   
@@ -137,7 +214,9 @@ import data from '../../public/api/articles.json'
     }
   });
 
+
 </script>
+
 
 
 <script>

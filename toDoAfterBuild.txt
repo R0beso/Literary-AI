@@ -12,6 +12,7 @@ insert:
 </script>
 
 
-insert:
+insert complement-dist/ to dist/:
 
 ads.txt
+es/index.html
