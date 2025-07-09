@@ -4,11 +4,13 @@
   "version": "2.2.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "pnpm run generate-sitemap && astro build",
     "preview": "astro preview",
+    "generate-sitemap": "node scripts/generate-sitemap.mjs",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.4.1",
     "@emailjs/browser": "^4.4.1",
     "astro": "^5.7.5",
     "marked": "^15.0.11"

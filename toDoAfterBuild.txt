@@ -12,7 +12,11 @@ insert:
 </script>
 
 
-insert complement-dist/ to dist/:
+complement-dist/ to dist/:
 
-ads.txt
-es/index.html
+  delete from dist/:
+    es
+
+  insert from complement-dist/:
+    ads.txt
+    es/index.html

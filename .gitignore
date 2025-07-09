@@ -1,6 +1,7 @@
 # build output
 dist/
 complement-dist/
+toDoAfterBuild.txt
 
 # generated types
 .astro/
