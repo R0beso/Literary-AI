@@ -1,0 +1,122 @@
+---
+const isRoot = new URL(Astro.request.url).pathname === "/";
+---
+
+{
+    isRoot && (
+    <div></div>
+    <header class="navbar-hippo" >
+        <div class="profile-hippo">
+            <a id="logo-link-hippo">
+                <img src="/assets/images/logo.png" alt="hippo-logo">
+            </a>
+            <span><a href="/hippobese.com/" class="home-hippo">Hippobese</a><span>- Blog</span></span>
+        </div>
+    </header>
+    )
+}
+
+
+<style>
+    .navbar-hippo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #333333fa;
+        padding: 10px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid white;
+
+    }
+
+    .profile-hippo {
+        display: flex;
+        align-items: center;
+    }
+
+    a.home-hippo {
+    color: inherit;         /* Hereda el color del texto padre */
+    text-decoration: none;  /* Quita el subrayado */
+    }
+
+    .profile-hippo img {
+        width: 56px;
+        height: 56px;
+        border-radius: 35%;
+        margin-right: 10px;
+    }
+
+    .profile-hippo span {
+        color: white;
+        font-size: 20px;
+        font-family: 'Yu Gothic UI light', Verdana, Arial;
+        padding-left: 10px;
+    }
+
+    .profile-hippo span span {
+        color: #bbb;
+        font-size: 20px;
+        font-family: 'Yu Gothic UI light', Verdana, Arial;
+        padding-left: 5px;
+    }
+
+    .icons {
+        display: flex;
+        align-items: center;
+    }
+
+    .icons img {
+        width: 40px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .flags {
+        cursor: pointer;
+    }
+
+    .menu-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .menu-button svg rect {
+        transition: all 0.3s ease;
+    }
+
+
+    #alertActivator { 
+        cursor: pointer; 
+    }
+
+    /* Responsive */
+
+    @media (max-width: 475px) {
+
+        .profile-hippo span{
+            font-size: 16px;
+        }
+
+        .profile-hippo span span{
+            font-size: 16px;
+        }
+    }
+
+
+    @media (min-width: 1600px) {
+        .navbar-hippo {
+            padding: 10px 150px;
+        }
+
+    }
+
+    @media (min-width: 1800px) {
+        .navbar-hippo {
+            padding: 10px 250px;
+        }
+    }
+
+</style>
