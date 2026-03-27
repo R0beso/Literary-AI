@@ -51,7 +51,7 @@ const urlsXml = allPages
     <priority>0.5</priority>
   </url>`;
     }
-
+/*
     // Para páginas HTML sí agregamos alternates
     const alternates = allPages
       .filter(p => p.url.replace(/(\?lang=)(es|en)/, '') === url.replace(/(\?lang=)(es|en)/, '') && !p.url.endsWith('.pdf'))
@@ -60,6 +60,9 @@ const urlsXml = allPages
         return `<xhtml:link rel="alternate" hreflang="${p.lang}" href="${safeHref}" />`;
       })
       .join('\n    ');
+*/
+
+    const alternates = '';
 
     return `
   <url>
