@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 
-const siteUrl = 'https://literar-ai.opihost.com/';
+const siteUrl = 'https://literar-ai.opihost.com';
 const languages = ['es', 'en'];
 
 // Lee los artículos
