@@ -1,8 +1,8 @@
 {
     "spanish": {
         "title":"Reportar incidente",
-        "span":"¿Por qué quieres reportar este artículo? Si alguien se encuentra en peligro inminente, busca ayuda antes de enviar un reporte a Hippobese. No esperes.",
-        "spanHome":"¿Por qué quieres reportar estos artículos? Si alguien se encuentra en peligro inminente, busca ayuda antes de enviar un reporte a Hippobese. No esperes.",
+        "span":"¿Por qué quieres reportar este artículo? Si alguien se encuentra en peligro inminente, busca ayuda antes de enviar un reporte a Literar-AI. No esperes.",
+        "spanHome":"¿Por qué quieres reportar estos artículos? Si alguien se encuentra en peligro inminente, busca ayuda antes de enviar un reporte a Literar-AI. No esperes.",
         "sentences":[
             "Amenazas a la seguridad y bienestar personal",
             "Contenido peligroso o perturbador",
@@ -14,8 +14,8 @@
     },
     "english": {
         "title":"Report incident",
-        "span":"Why do you want to report this article? If someone is in imminent danger, seek help before sending a report to Hippobese. Don't wait.",
-        "spanHome":"Why do you want to report these articles? If someone is in imminent danger, seek help before sending a report to Hippobese. Don't wait.",
+        "span":"Why do you want to report this article? If someone is in imminent danger, seek help before sending a report to Literar-AI. Don't wait.",
+        "spanHome":"Why do you want to report these articles? If someone is in imminent danger, seek help before sending a report to Literar-AI. Don't wait.",
         "sentences":[
             "Threats to personal safety and well-being",
             "Dangerous or disturbing content",
