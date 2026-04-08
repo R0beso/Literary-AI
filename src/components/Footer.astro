@@ -3,36 +3,12 @@
 ---
 
 <footer style="text-align: center; color: #aaa; font-size: 14px; padding: 20px 20px 30px 20px;">
-    © <span id="year"></span> Hippobese - <span id="changeText">Terms Privacy</span>
+    2025 - <span id="year">
+      {new Date().getFullYear().toString()}
+          </span> ©  Literar-AI - 
+          <span id="changeText">
+            <a href="https://opihost.com/terminos-condiciones/">Terms</a>
+            <a href="https://opihost.com/politica-cookies/">Cookies</a>
+            <a href="https://opihost.com/politica-privacidad/">Privacy</a>
+          </span>
 </footer>
-
-<script>
-  import json from '../text-content/static/footer.json';
-
-  function defineText() {
-    let footer;
-
-    if (document.documentElement.lang === "en") footer = json.english.footer; 
-    else footer = json.spanish.footer;
-
-    const footerElement = document.getElementById('changeText');
-
-    if (footerElement) footerElement.textContent = footer;
-
-  }
-
-  defineText();
-  const clickDiv = document.querySelector('.flags');
-
-  if (clickDiv) {
-      clickDiv.addEventListener('click', () => {
-        defineText();
-    });
-  }
-
-  const yearElement = document.getElementById('year');
-  if (yearElement) yearElement.textContent = new Date().getFullYear().toString();
-    
-</script>
-    
-  
